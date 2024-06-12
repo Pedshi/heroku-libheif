@@ -10,10 +10,10 @@ apt-get update && apt-get install -y \
   git \
   pkg-config \
   wget \
-  libglib2.0-dev \
-  libheif-dev \
-  libde265-dev \
-  x265
+  libglib2.0-dev
+
+# Create a directory for local installations
+mkdir -p /app/local
 
 # Install libde265
 cd /tmp
@@ -43,6 +43,10 @@ cd libheif-1.12.0
 ./configure --prefix=/app/local --with-libde265 --with-x265
 make
 make install
+
+# Ensure libraries are correctly linked
+export PKG_CONFIG_PATH=/app/local/lib/pkgconfig:$PKG_CONFIG_PATH
+export LD_LIBRARY_PATH=/app/local/lib:$LD_LIBRARY_PATH
 
 # Clean up
 rm -rf /tmp/libde265-1.0.8
