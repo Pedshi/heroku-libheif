@@ -17,8 +17,9 @@ apt-get update && apt-get install -y \
 
 # Install libde265
 cd /tmp
-git clone https://github.com/strukturag/libde265.git
-cd libde265
+wget https://github.com/strukturag/libde265/releases/download/v1.0.8/libde265-1.0.8.tar.gz
+tar -xzf libde265-1.0.8.tar.gz
+cd libde265-1.0.8
 ./autogen.sh
 ./configure --prefix=/app/local
 make
@@ -26,24 +27,26 @@ make install
 
 # Install x265
 cd /tmp
-hg clone https://bitbucket.org/multicoreware/x265
-cd x265/build/linux
+wget https://bitbucket.org/multicoreware/x265_git/downloads/x265_3.5.tar.gz
+tar -xzf x265_3.5.tar.gz
+cd x265_3.5/build/linux
 cmake -DCMAKE_INSTALL_PREFIX=/app/local ../../source
 make
 make install
 
 # Install libheif
 cd /tmp
-git clone https://github.com/strukturag/libheif.git
-cd libheif
+wget https://github.com/strukturag/libheif/releases/download/v1.12.0/libheif-1.12.0.tar.gz
+tar -xzf libheif-1.12.0.tar.gz
+cd libheif-1.12.0
 ./autogen.sh
 ./configure --prefix=/app/local --with-libde265 --with-x265
 make
 make install
 
 # Clean up
-rm -rf /tmp/libde265
-rm -rf /tmp/x265
-rm -rf /tmp/libheif
+rm -rf /tmp/libde265-1.0.8
+rm -rf /tmp/x265_3.5
+rm -rf /tmp/libheif-1.12.0
 
 echo "Libraries installed"
